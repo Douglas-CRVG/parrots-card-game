@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #eef9bf;
+    padding: 40px;
+}
+
+h1{
+    font-size: 56px;
+    text-align: center;
+    color: #75B79E;
+	margin: 0 auto;
+}
+
+header{
+	width: 100%;
+    margin-bottom: 47px;
+}
+
+main{
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	grid-gap: 34px;
+	width: 1050px;
+}
+
+.card {
+    width: 117px;
+    height: 146px;
+    position: relative;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
+    background-color: #A7E9AF;
+
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    
+	position: absolute;
+    backface-visibility: hidden;
+    transition: all .5s;
+    transform-style: preserve-3d;
+}
+
+.card img{
+	width: 100px;
+}
+
+.back-face {
+    transform: rotateY(180deg);
+}
+
+.spin .back-face {
+    transform: rotateY(0deg);
+}
+
+.spin .front-face {
+    transform: rotateY(-180deg);
+}
+
+@media (max-width: 1050px){
+	main{
+		width: 100%;
+	}
+}
+
+@media (max-width: 600px){
+    h1{
+        font-size: 36px;
+    }
+
+	.card{
+		margin-right: 0;
+	}
+
+	main {
+		flex-direction: column;
+		align-items: center;
+	}
+}
