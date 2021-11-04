@@ -1,10 +1,34 @@
 let qntCards = 0;
+let countSelected = 0;
+let card1, card2;
+
+function compareCards(){
+    console.log({card1, card2})
+
+    if(card1 !== card2){
+        alert("São diferentes");
+    } else{
+        alert("São iguais")
+    }
+    
+    countSelected = 0;
+    card1 = undefined;
+    card2 = undefined;
+}
 
 function cardsSelect(card){
-    alert(card);
+    
+
+    if (countSelected === 1){
+        card1 = card.innerHTML;
+    } else if(countSelected === 2){
+        card2 = card.innerHTML;
+        compareCards();
+    }
 }
 
 function turnCard(card){
+    countSelected++;
     card.classList.add("spin");
     cardsSelect(card);
 }
