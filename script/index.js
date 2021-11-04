@@ -1,10 +1,19 @@
 let qntCards = 0;
 
+function cardsSelect(card){
+    alert(card);
+}
+
+function turnCard(card){
+    card.classList.add("spin");
+    cardsSelect(card);
+}
+
 function distributeCards(cardsGame){
     const gameBoard = document.querySelector("main");
     cardsGame.map(card => {
         gameBoard.innerHTML += `
-        <div class="card" data-identifier="card">
+        <div class="card" data-identifier="card" onclick="turnCard(this);">
             <div class="front-face face" data-identifier="front-face">
                 <img src="assets/front.png" alt="Parrot localizado na frente das cartas">
             </div>
@@ -34,7 +43,7 @@ function shuffleCards(){
 }
 
 function validateInput(){
-    qntCards = Number(prompt("Com quantas cartas você quer jogar? [4 - 14]"));
+    qntCards = 10; //Number(prompt("Com quantas cartas você quer jogar? [4 - 14]"));
     if(qntCards < 4 || qntCards%2 !== 0 || qntCards > 14){
         validateInput();
     }
