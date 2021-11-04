@@ -1,7 +1,19 @@
 let qntCards = 0;
 
 function distributeCards(cardsGame){
-    alert(cardsGame);
+    const gameBoard = document.querySelector("main");
+    cardsGame.map(card => {
+        gameBoard.innerHTML += `
+        <div class="card" data-identifier="card">
+            <div class="front-face face" data-identifier="front-face">
+                <img src="assets/front.png" alt="Parrot localizado na frente das cartas">
+            </div>
+            <div class="back-face face" data-identifier="back-face">
+                <img src="assets/${card}parrot.gif" alt="Gif do ${card}parrot">
+            </div>
+        </div>
+        `;
+    });    
 }
 
 function comparator() { 
