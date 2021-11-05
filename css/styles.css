@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Roboto:wght@700&display=swap');
 
 body{
     font-family: 'Roboto', sans-serif;
@@ -47,7 +47,7 @@ main{
     
 	position: absolute;
     backface-visibility: hidden;
-    transition: all .5s;
+    transition: all .1s;
     transform-style: preserve-3d;
 }
 
@@ -65,6 +65,16 @@ main{
 
 .spin .front-face {
     transform: rotateY(-180deg);
+}
+
+.timer{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+
+    position: fixed;
+    top: 10px;
+    right: 10px;
 }
 
 @media (max-width: 1050px){

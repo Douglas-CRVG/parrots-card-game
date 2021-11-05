@@ -1,8 +1,18 @@
 let qntCards = 0;
 let countSelected = 0;
 let qntMoves = 0;
-let card1, card2;
-let card1Selected, card2Selected;
+let countTimer = 0;
+let card1, card2, card1Selected, card2Selected;
+
+function timer(){
+    countTimer++;
+    const timer = document.querySelector(".timer");
+    timer.innerHTML =`
+    <div class="timer">
+        ${countTimer}
+    </div>
+    `;
+}
 
 function compareCards(){
     qntMoves++;    
@@ -15,13 +25,12 @@ function compareCards(){
         card1Selected.removeAttribute("onclick");
         card2Selected.removeAttribute("onclick");
     }
-    console.log(qntCards)
     countSelected = 0;
     card1 = undefined;
     card2 = undefined;
 
     if(qntCards === 0){
-        alert(`Você ganhou em ${qntMoves} jogadas!`);
+        alert(`Você ganhou em ${qntMoves} jogadas com ${countTimer} segundos!`);
     }
 }
 
@@ -36,6 +45,7 @@ function cardsSelect(card){
     }
 }
 
+//corrigir bug de virar cartas
 function turnCard(card){
     countSelected++;
     card.classList.add("spin");
@@ -55,7 +65,9 @@ function distributeCards(cardsGame){
             </div>
         </div>
         `;
-    });    
+    });
+
+    setInterval(timer, 1000);
 }
 
 function comparator() { 
@@ -76,7 +88,7 @@ function shuffleCards(){
 }
 
 function validateInput(){
-    qntCards = 10; //Number(prompt("Com quantas cartas você quer jogar? [4 - 14]"));
+    qntCards = Number(prompt("Com quantas cartas você quer jogar? [4 - 14]"));
     if(qntCards < 4 || qntCards%2 !== 0 || qntCards > 14){
         validateInput();
     }
