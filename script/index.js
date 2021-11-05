@@ -2,7 +2,21 @@ let qntCards = 0;
 let countSelected = 0;
 let qntMoves = 0;
 let countTimer = 0;
-let card1, card2, card1Selected, card2Selected;
+let card1, card2, card1Selected, card2Selected, interval;
+
+function restart() {
+    qntCards = 0;
+    countSelected = 0;
+    qntMoves = 0;
+    countTimer = 0;
+    card1 = undefined;
+    card2 = undefined;
+    card1Selected = undefined;
+    card2Selected = undefined;
+    interval = undefined;
+
+    validateInput();
+}
 
 function timer(){
     countTimer++;
@@ -30,7 +44,13 @@ function compareCards(){
     card2 = undefined;
 
     if(qntCards === 0){
+        clearInterval(interval);
         alert(`Você ganhou em ${qntMoves} jogadas com ${countTimer} segundos!`);
+        const newGame = prompt('Jogar novamente? Digite "sim" para continuar');
+
+        if(newGame === "sim"){
+            restart();
+        }
     }
 }
 
@@ -54,6 +74,7 @@ function turnCard(card){
 
 function distributeCards(cardsGame){
     const gameBoard = document.querySelector("main");
+    gameBoard.innerHTML = "";
     cardsGame.map(card => {
         gameBoard.innerHTML += `
         <div class="card" data-identifier="card" onclick="turnCard(this);">
@@ -67,7 +88,7 @@ function distributeCards(cardsGame){
         `;
     });
 
-    setInterval(timer, 1000);
+    interval = setInterval(timer, 1000);
 }
 
 function comparator() { 
