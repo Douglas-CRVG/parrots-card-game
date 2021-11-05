@@ -1,14 +1,17 @@
 let qntCards = 0;
 let countSelected = 0;
 let card1, card2;
+let card1Selected, card2Selected;
 
 function compareCards(){
     console.log({card1, card2})
 
     if(card1 !== card2){
-        alert("São diferentes");
+        card1Selected.classList.remove("spin");
+        card2Selected.classList.remove("spin");
     } else{
-        alert("São iguais")
+        card1Selected.removeAttribute("onclick");
+        card2Selected.removeAttribute("onclick");
     }
     
     countSelected = 0;
@@ -16,13 +19,13 @@ function compareCards(){
     card2 = undefined;
 }
 
-function cardsSelect(card){
-    
-
+function cardsSelect(card){ 
     if (countSelected === 1){
         card1 = card.innerHTML;
+        card1Selected = card;
     } else if(countSelected === 2){
         card2 = card.innerHTML;
+        card2Selected = card;
         compareCards();
     }
 }
@@ -30,7 +33,7 @@ function cardsSelect(card){
 function turnCard(card){
     countSelected++;
     card.classList.add("spin");
-    cardsSelect(card);
+    setTimeout(() => cardsSelect(card), 1000);
 }
 
 function distributeCards(cardsGame){
