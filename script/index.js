@@ -1,22 +1,28 @@
 let qntCards = 0;
 let countSelected = 0;
+let qntMoves = 0;
 let card1, card2;
 let card1Selected, card2Selected;
 
 function compareCards(){
-    console.log({card1, card2})
+    qntMoves++;    
 
     if(card1 !== card2){
         card1Selected.classList.remove("spin");
         card2Selected.classList.remove("spin");
     } else{
+        qntCards -= 2;
         card1Selected.removeAttribute("onclick");
         card2Selected.removeAttribute("onclick");
     }
-    
+    console.log(qntCards)
     countSelected = 0;
     card1 = undefined;
     card2 = undefined;
+
+    if(qntCards === 0){
+        alert(`Você ganhou em ${qntMoves} jogadas!`);
+    }
 }
 
 function cardsSelect(card){ 
