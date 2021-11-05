@@ -18,23 +18,23 @@ function restart() {
     validateInput();
 }
 
-function timer(){
+function timer() {
     countTimer++;
     const timer = document.querySelector(".timer");
-    timer.innerHTML =`
+    timer.innerHTML = `
     <div class="timer">
         ${countTimer}
     </div>
     `;
 }
 
-function compareCards(){
-    qntMoves++;    
+function compareCards() {
+    qntMoves++;
 
-    if(card1 !== card2){
+    if (card1 !== card2) {
         card1Selected.classList.remove("spin");
         card2Selected.classList.remove("spin");
-    } else{
+    } else {
         qntCards -= 2;
         card1Selected.removeAttribute("onclick");
         card2Selected.removeAttribute("onclick");
@@ -43,22 +43,22 @@ function compareCards(){
     card1 = undefined;
     card2 = undefined;
 
-    if(qntCards === 0){
+    if (qntCards === 0) {
         clearInterval(interval);
         alert(`Você ganhou em ${qntMoves} jogadas com ${countTimer} segundos!`);
         const newGame = prompt('Jogar novamente? Digite "sim" para continuar');
 
-        if(newGame === "sim"){
+        if (newGame === "sim") {
             restart();
         }
     }
 }
 
-function cardsSelect(card){ 
-    if (countSelected === 1){
+function cardsSelect(card) {
+    if (countSelected === 1) {
         card1 = card.innerHTML;
         card1Selected = card;
-    } else if(countSelected === 2){
+    } else if (countSelected === 2) {
         card2 = card.innerHTML;
         card2Selected = card;
         compareCards();
@@ -66,13 +66,17 @@ function cardsSelect(card){
 }
 
 //corrigir bug de virar cartas
-function turnCard(card){
-    countSelected++;
-    card.classList.add("spin");
+function turnCard(card) {
+    const verified = card.classList.contains("spin");
+    if (!verified) {
+        countSelected++;
+        card.classList.add("spin");
+    }
+
     setTimeout(() => cardsSelect(card), 1000);
 }
 
-function distributeCards(cardsGame){
+function distributeCards(cardsGame) {
     const gameBoard = document.querySelector("main");
     gameBoard.innerHTML = "";
     cardsGame.map(card => {
@@ -91,15 +95,15 @@ function distributeCards(cardsGame){
     interval = setInterval(timer, 1000);
 }
 
-function comparator() { 
-	return Math.random() - 0.5; 
+function comparator() {
+    return Math.random() - 0.5;
 }
 
-function shuffleCards(){
+function shuffleCards() {
     const cards = ["bobross", "explody", "fiesta", "metal", "revertit", "triplets", "unicorn"];
     let cardsGame = [];
     cards.map((card, i) => {
-        if (i < qntCards/2){
+        if (i < qntCards / 2) {
             cardsGame.push(card);
             cardsGame.push(card);
         }
@@ -108,13 +112,13 @@ function shuffleCards(){
     distributeCards(cardsGame);
 }
 
-function validateInput(){
+function validateInput() {
     qntCards = Number(prompt("Com quantas cartas você quer jogar? [4 - 14]"));
-    if(qntCards < 4 || qntCards%2 !== 0 || qntCards > 14){
+    if (qntCards >= 4 && qntCards % 2 === 0 && qntCards <= 14) {
+        shuffleCards();
+    } else {
         validateInput();
     }
-
-    shuffleCards();
 }
 
 validateInput();
