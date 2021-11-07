@@ -28,21 +28,7 @@ function timer() {
     `;
 }
 
-function compareCards() {
-    qntMoves++;
-
-    if (card1 !== card2) {
-        card1Selected.classList.remove("spin");
-        card2Selected.classList.remove("spin");
-    } else {
-        qntCards -= 2;
-        card1Selected.removeAttribute("onclick");
-        card2Selected.removeAttribute("onclick");
-    }
-    countSelected = 0;
-    card1 = undefined;
-    card2 = undefined;
-
+function endGame(){
     if (qntCards === 0) {
         clearInterval(interval);
         alert(`Você ganhou em ${qntMoves} jogadas com ${countTimer} segundos!`);
@@ -52,6 +38,28 @@ function compareCards() {
             restart();
         }
     }
+}
+
+function desvirar(){
+    card1Selected.classList.remove("spin");
+    card2Selected.classList.remove("spin");
+}
+
+function compareCards() {
+    qntMoves++;
+
+    if (card1 !== card2) {
+        desvirar();
+    } else {
+        qntCards -= 2;
+        card1Selected.removeAttribute("onclick");
+        card2Selected.removeAttribute("onclick");
+    }
+    countSelected = 0;
+    card1 = undefined;
+    card2 = undefined;
+
+    endGame();
 }
 
 function cardsSelect(card) {
@@ -65,7 +73,6 @@ function cardsSelect(card) {
     }
 }
 
-//corrigir bug de virar cartas
 function turnCard(card) {
     const verified = card.classList.contains("spin");
     if (!verified) {
@@ -73,7 +80,17 @@ function turnCard(card) {
         card.classList.add("spin");
     }
 
-    setTimeout(() => cardsSelect(card), 1000);
+    const blocked = document.querySelectorAll(".card");
+    for(let i = 0; i < blocked.length; i++){
+        blocked[i].classList.add("block");
+    }
+
+    setTimeout(() => {
+        cardsSelect(card)
+        for(let i = 0; i < blocked.length; i++){
+            blocked[i].classList.remove("block");
+        }
+    }, 1000);
 }
 
 function distributeCards(cardsGame) {
@@ -100,7 +117,7 @@ function comparator() {
 }
 
 function shuffleCards() {
-    const cards = ["bobross", "explody", "fiesta", "metal", "revertit", "triplets", "unicorn"];
+    const cards = ["bobross", "explody", "fiesta", "metal", "revertit", "triplets", "unicorn"].sort(comparator);
     let cardsGame = [];
     cards.map((card, i) => {
         if (i < qntCards / 2) {

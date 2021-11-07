@@ -31,6 +31,7 @@ main{
     width: 117px;
     height: 146px;
     position: relative;
+    cursor: pointer;
 }
 
 .face {
@@ -47,7 +48,7 @@ main{
     
 	position: absolute;
     backface-visibility: hidden;
-    transition: all .1s;
+    transition: all .5s;
     transform-style: preserve-3d;
 }
 
@@ -75,6 +76,10 @@ main{
     position: fixed;
     top: 10px;
     right: 10px;
+}
+
+.block {
+    pointer-events: none;
 }
 
 @media (max-width: 1050px){
